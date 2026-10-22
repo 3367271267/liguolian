@@ -230,6 +230,7 @@
             overflow:hidden;
             box-shadow:0 4px 16px rgba(0,0,0,0.07);
             transition: transform 0.3s;
+            cursor: pointer;
         }
         .portfolio-card:hover {
             transform: translateY(-6px);
@@ -341,6 +342,40 @@
             color:#aaa;
             font-size:14px;
         }
+        /* 视频弹窗样式 */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .video-modal.active {
+            display: flex;
+        }
+        .modal-inner {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+        }
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #fff;
+            font-size: 32px;
+            cursor: pointer;
+        }
+        .modal-video {
+            width: 100%;
+            border-radius: 12px;
+        }
         /* 响应式 */
         @media(max-width: 900px) {
             nav ul {
@@ -396,13 +431,12 @@
             <button class="cta-btn" onclick="showPage('contact')">预约咨询</button>
         </div>
     </header>
-
     <!-- 首页 Home -->
     <section id="home" class="page-section active">
         <div class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <h1>你好，我是<span>李国莲（Lily）</span></h1>
+                    <h1>您好，我是<span>李国莲（Lily）</span></h1>
                     <p>专注 3D建模、场景美术、UE引擎小游戏开发、虚拟现实内容制作。承接广告、影视、企业宣传、教育课件、独立游戏项目，也提供小游戏开发、VR内容技能培训服务。从模型搭建、贴图绘制、场景布局到动画成品、微信小游戏上线一站式落地。</p>
                     <div class="hero-buttons">
                         <button class="cta-btn" onclick="showPage('portfolio')">浏览作品集</button>
@@ -426,8 +460,8 @@
                     <p>虚幻引擎场景搭建、蓝图交互、关卡制作，AI辅助快速开发微信小游戏，打包上线。</p>
                 </div>
                 <div style="background:var(--primary-light);padding:28px;border-radius:16px;">
-                    <h3>VR / 虚拟现实内容</h3>
-                    <p>虚拟仿真场景、沉浸式交互项目，适合企业展厅、教育实训、产品虚拟展示。</p>
+                    <h3>UE粒子特效制作</h3>
+                    <p>虚拟仿真场景、沉浸式交互项目，适合影视特效、教育实训。</p>
                 </div>
                 <div style="background:var(--primary-light);padding:28px;border-radius:16px;">
                     <h3>技能培训</h3>
@@ -436,7 +470,6 @@
             </div>
         </div>
     </section>
-
     <!-- 个人简介 Profile -->
     <section id="profile" class="page-section">
         <div class="container profile-wrap">
@@ -446,11 +479,14 @@
             </div>
             <div class="profile-card">
                 <div class="profile-sidebar">
-                    <img class="avatar" alt="李国莲头像" src="https://p3-flow-image-sign.byteimg.com/tos-cn-i-a9rns2rl98/00000000000000000000000000000000~tplv-a9rns2rl98-image.image">
+                    <img class="avatar" alt="李国莲头像" src="image/lgl.jpg">
                     <h3>李国莲</h3>
                     <span class="tag">Lily</span>
-                    <p>3D建模 / UE小游戏 / VR内容</p>
+                    <p>3D建模 / UE小游戏 / UE特效制作</p>
                     <div style="margin-top:24px;text-align:left;">
+        		<p><strong>性别：</strong>女</p>
+			<p><strong>名族：</strong>汉族</p>
+			<p><strong>政治面貌：</strong>团员</p>
                         <p><strong>学历：</strong>大专</p>
                         <p><strong>证书：</strong>英语四级</p>
                         <p><strong>获奖：</strong>2025四川省华迪杯三等奖</p>
@@ -459,7 +495,9 @@
                 <div class="profile-main">
                     <div class="profile-item">
                         <h4>个人介绍</h4>
-                        <p>我是李国莲，一名专注三维数字内容创作的开发者。擅长从零搭建完整3D场景，包含模型拓扑、UV拆分、贴图绘制、光照渲染、镜头动画制作；熟练使用虚幻引擎UE进行场景搭建、关卡设计、基础交互逻辑开发，同时结合AI大模型辅助快速生成游戏资源、玩法原型，完成微信小游戏开发与发布。</p>
+                        <p>我是李国莲，一名专注三维数字内容创作的开发者。擅长从零搭建完整3D场景，包含模型拓扑、UV拆分、贴图绘制、光照渲染、镜头动画制作				</p>	
+			<p>熟练使用虚幻引擎UE进行场景搭建、关卡设计、基础交互逻辑开发，同时结合AI大模型辅助快速生成游戏资源、玩法原型，完成微信小游戏开发与发布。
+			</p>
                         <p>我擅长团队协作，也可以独立承接完整项目，服务广告、影视、企业宣传、教育虚拟实训、独立游戏等方向，同时对外提供小游戏、VR开发相关培训，帮助爱好者快速上手数字内容制作。</p>
                     </div>
                     <div class="profile-item">
@@ -470,67 +508,55 @@
                     </div>
                     <div class="profile-item">
                         <h4>荣誉与能力标签</h4>
-                        <p>✅ 2025年四川省华迪杯三等奖<br>✅ 英语四级<br>✅ 3D建模、贴图、场景、动画全流程<br>✅ Unreal Engine 场景与小游戏开发<br>✅ AI辅助小游戏开发、微信小游戏上线<br>✅ VR虚拟场景搭建、沉浸式内容制作<br>✅ 项目培训、技术教学</p>
+                        <p>✅ 2025年四川省华迪杯三等奖<br>✅ 英语四级<br>✅ 3D建模、贴图、场景、动画全流程<br>✅ UE 场景与小游戏开发<br>✅ AI辅助小游戏开发、微信小游戏上线<br>✅ UE粒子特效制作<br>✅ 项目培训、技术教学</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
     <!-- 作品集 Portfolio -->
     <section id="portfolio" class="page-section">
         <div class="container portfolio-wrap">
             <div class="section-title">
                 <h2>作品集</h2>
-                <p>3D场景建模、房屋美术、UE小游戏、虚拟现实项目案例</p>
+                <p>3D场景建模、blender动画、UE小游戏、UE粒子特效</p>
             </div>
             <div class="portfolio-grid">
-                <div class="portfolio-card">
-                    <img alt="欧式房屋3D建模场景" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800">
+                <!-- 3D建模 -->
+                <div class="portfolio-card" onclick="openVideo('video/v1.mp4')">
+                    <img alt="3D场景建模作品" src="image/bg1.jpg">
                     <div class="portfolio-card-body">
-                        <h3>写实房屋场景建模</h3>
-                        <p>住宅建筑建模、PBR贴图、环境布景，可用于影视镜头、VR看房、宣传短片。</p>
+                        <h3>3D建模</h3>
+                        <p>房屋建模、uv贴图（展开）、特效制作、摄像头运镜、场景布置。</p>
                     </div>
                 </div>
-                <div class="portfolio-card">
-                    <img alt="UE虚幻引擎游戏关卡" src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800">
+                <!-- Blender动画 -->
+                <div class="portfolio-card" onclick="openVideo('video/v2.mp4')">
+                    <img alt="Blender动画短片" src="image/bg2.png">
                     <div class="portfolio-card-body">
-                        <h3>UE开放小游戏关卡</h3>
-                        <p>虚幻引擎场景搭建、光照后处理、交互蓝图原型，适合休闲冒险小游戏。</p>
+                        <h3>Blender动画</h3>
+                        <p>角色动画、镜头运镜、场景动画短片制作，关键帧动画、渲染输出成品视频。</p>
                     </div>
                 </div>
-                <div class="portfolio-card">
-                    <img alt="虚拟VR实训场景" src="https://images.unsplash.com/photo-1617802690992-15d93263d3a9?w=800">
+                <!-- UE小游戏 -->
+                <div class="portfolio-card" onclick="openVideo('video/v3.mp4')">
+                    <img alt="UE小游戏项目" src="image/bg3.png">
                     <div class="portfolio-card-body">
-                        <h3>VR虚拟实训场景</h3>
-                        <p>沉浸式交互虚拟空间，面向教育、企业培训、产品虚拟演示。</p>
+                        <h3>UE小游戏</h3>
+                        <p>虚幻引擎关卡搭建、蓝图交互、玩家与敌人战斗逻辑、血条系统，可打包微信小游戏。</p>
                     </div>
                 </div>
-                <div class="portfolio-card">
-                    <img alt="3D动画短片场景" src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800">
+                <!-- UE粒子特效 -->
+                <div class="portfolio-card" onclick="openVideo('video/v4.mp4')">
+                    <img alt="UE粒子特效" src="image/bg4.png">
                     <div class="portfolio-card-body">
-                        <h3>三维动画短片项目</h3>
-                        <p>全套建模贴图、镜头动画、渲染输出，适配广告短片、影视小样。</p>
-                    </div>
-                </div>
-                <div class="portfolio-card">
-                    <img alt="微信小游戏项目" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800">
-                    <div class="portfolio-card-body">
-                        <h3>AI辅助微信小游戏</h3>
-                        <p>AI生成资源+UE整合开发，打包发布微信小游戏平台。</p>
-                    </div>
-                </div>
-                <div class="portfolio-card">
-                    <img alt="室内场景建模" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800">
-                    <div class="portfolio-card-body">
-                        <h3>室内空间3D复刻</h3>
-                        <p>室内户型建模、软装搭建、氛围渲染，企业展厅、虚拟样板间。</p>
+                        <h3>UE粒子制作</h3>
+                        <p>爆炸、火焰、烟雾、技能光效等Niagara粒子特效制作，适配游戏战斗与场景氛围。</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
     <!-- 联系 Contact -->
     <section id="contact" class="page-section">
         <div class="container contact-wrap">
@@ -569,19 +595,17 @@
                     <div>
                         <h4>社交媒体</h4>
                         <div class="social-links">
-                            <a href="#">微</a>
-                            <a href="#">B</a>
-                            <a href="#">抖</a>
+                            <a href="#">微信</a>
+                            <a href="#">B站</a>
+                            <a href="#">抖音</a>
                         </div>
                     </div>
                     <div style="margin-top:24px;">
-                        <p>地图占位：可后续替换自己的高德/百度地图嵌入代码</p>
-                    </div>
+                                            </div>
                 </div>
             </div>
         </div>
     </section>
-
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -622,6 +646,16 @@
         </div>
     </footer>
 
+    <!-- 视频弹窗 -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-inner">
+            <span class="modal-close" id="closeModal">×</span>
+            <video class="modal-video" id="modalVideo" controls>
+                <source src="video/v1.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
     <script>
         // 页面切换
         function showPage(pageId) {
@@ -642,6 +676,29 @@
             alert("✅ 留言提交成功！我会尽快联系你（当前纯前端，如需接收邮件，需要后端/表单接口如WPForms）");
             this.reset();
         })
+
+        // ========== 视频弹窗逻辑 ==========
+        const videoModal = document.getElementById('videoModal');
+        const modalVideo = document.getElementById('modalVideo');
+        const closeModal = document.getElementById('closeModal');
+
+        function openVideo(videoSrc){
+            modalVideo.src = videoSrc;
+            videoModal.classList.add('active');
+            modalVideo.play();
+        }
+        function closeVideoModal(){
+            modalVideo.pause();
+            modalVideo.src = "";
+            videoModal.classList.remove('active');
+        }
+        closeModal.onclick = closeVideoModal;
+        // 点击黑色遮罩关闭
+        videoModal.onclick = function(e){
+            if(e.target === videoModal){
+                closeVideoModal();
+            }
+        }
     </script>
 </body>
 </html>
