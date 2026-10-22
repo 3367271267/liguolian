@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="李国莲｜3D建模、场景动画、UE小游戏、虚拟现实项目制作，提供游戏开发、数字内容、技能培训服务，承接广告、影视、企业、教育、游戏项目">
+    <meta name="keywords" content="小游戏,虚拟现实,培训,UE5,3D建模,场景动画,微信小游戏,数字内容制作">
+    <meta name="author" content="李国莲">
+    <title>Lily个人介绍｜3D建模 · UE小游戏 · VR内容制作</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        :root {
+            --primary: #f2789f;
+            --primary-light: #fce4eb;
+            --primary-dark: #d95b82;
+            --dark: #222831;
+            --gray: #666;
+            --light-gray: #f4f4f4;
+            --white: #ffffff;
+        }
+        body {
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: var(--white);
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Header 吸顶导航 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            z-index: 999;
+        }
+        .nav-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 22px;
+            color: var(--primary);
+        }
+        .logo-mark {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), #ffb6c8);
+            display: grid;
+            place-items: center;
+            color: white;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+        nav a {
+            font-weight: 500;
+            color: var(--dark);
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+        .cta-btn {
+            background: var(--primary);
+            color: white;
+            padding: 10px 22px;
+            border-radius: 99px;
+            font-weight: 500;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .cta-btn:hover {
+            background: var(--primary-dark);
+        }
+        .hamburger {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+        }
+        /* Page 区块，默认隐藏 */
+        .page-section {
+            display: none;
+            padding-top: 90px;
+        }
+        .page-section.active {
+            display: block;
+        }
+        /* Hero 首页首屏 */
+        .hero {
+            min-height: calc(100vh - 90px);
+            background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url("https://images.unsplash.com/photo-1617042375876-3db605a94e45?w=1600") center/cover;
+            display: flex;
+            align-items: center;
+        }
+        .hero-content {
+            max-width: 700px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        .hero h1 span {
+            color: var(--primary);
+        }
+        .hero p {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 22px;
+            border-radius: 99px;
+            font-weight: 500;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        /* 通用区块标题 */
+        .section-title {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .section-title h2 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        /* 个人简介页面 */
+        .profile-wrap {
+            padding: 60px 0;
+        }
+        .profile-card {
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            border-radius: 18px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+        }
+        .profile-sidebar {
+            background: var(--primary-light);
+            border-radius: 14px;
+            padding: 30px;
+            text-align: center;
+        }
+        .avatar {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        .profile-sidebar h3 {
+            font-size: 24px;
+            color: var(--dark);
+        }
+        .profile-sidebar .tag {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 14px;
+            margin:8px 0 20px;
+        }
+        .profile-item {
+            margin-bottom: 28px;
+        }
+        .profile-item h4 {
+            color: var(--primary);
+            margin-bottom:10px;
+            font-size:18px;
+            border-left:4px solid var(--primary);
+            padding-left:12px;
+        }
+        /* 作品集网格 */
+        .portfolio-wrap {
+            padding:60px 0;
+        }
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap:28px;
+        }
+        .portfolio-card {
+            background:white;
+            border-radius:16px;
+            overflow:hidden;
+            box-shadow:0 4px 16px rgba(0,0,0,0.07);
+            transition: transform 0.3s;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-6px);
+        }
+        .portfolio-card img {
+            width:100%;
+            height:220px;
+            object-fit:cover;
+        }
+        .portfolio-card-body {
+            padding:20px;
+        }
+        .portfolio-card-body h3 {
+            margin-bottom:8px;
+        }
+        .portfolio-card-body p {
+            color:var(--gray);
+            font-size:15px;
+        }
+        /* 联系页面 */
+        .contact-wrap {
+            padding:60px 0;
+        }
+        .contact-grid {
+            display:grid;
+            grid-template-columns: 1fr 1fr;
+            gap:32px;
+        }
+        .contact-form {
+            background:white;
+            padding:32px;
+            border-radius:16px;
+            box-shadow:0 4px 16px rgba(0,0,0,0.07);
+        }
+        .form-group {
+            margin-bottom:20px;
+        }
+        .form-group label {
+            display:block;
+            margin-bottom:6px;
+            font-weight:500;
+        }
+        .form-group input, .form-group textarea {
+            width:100%;
+            padding:12px 16px;
+            border:1px solid #ddd;
+            border-radius:10px;
+            font-size:16px;
+        }
+        .form-group textarea {
+            min-height:140px;
+            resize:vertical;
+        }
+        .contact-info {
+            background:var(--primary-light);
+            padding:32px;
+            border-radius:16px;
+        }
+        .contact-info h3 {
+            margin-bottom:20px;
+        }
+        .info-line {
+            margin-bottom:16px;
+        }
+        .social-links {
+            display:flex;
+            gap:12px;
+            margin-top:24px;
+        }
+        .social-links a {
+            width:42px;
+            height:42px;
+            background:var(--primary);
+            color:white;
+            border-radius:50%;
+            display:grid;
+            place-items:center;
+        }
+        /* Footer */
+        footer {
+            background:var(--dark);
+            color:white;
+            padding:60px 0 24px;
+            margin-top:60px;
+        }
+        .footer-grid {
+            display:grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+            gap:32px;
+            margin-bottom:40px;
+        }
+        .footer-col h4 {
+            margin-bottom:18px;
+            color:var(--primary);
+        }
+        .footer-col ul {
+            list-style:none;
+        }
+        .footer-col li {
+            margin-bottom:10px;
+        }
+        .footer-col a {
+            color:#ccc;
+        }
+        .copyright {
+            text-align:center;
+            padding-top:20px;
+            border-top:1px solid #383e49;
+            color:#aaa;
+            font-size:14px;
+        }
+        /* 响应式 */
+        @media(max-width: 900px) {
+            nav ul {
+                position:absolute;
+                top:70px;
+                left:0;
+                width:100%;
+                background:white;
+                flex-direction:column;
+                padding:20px;
+                gap:16px;
+                box-shadow:0 6px 10px rgba(0,0,0,0.1);
+                display:none;
+            }
+            nav ul.open {
+                display:flex;
+            }
+            .hamburger {
+                display:block;
+            }
+            .nav-wrap .cta-btn {
+                display:none;
+            }
+            .profile-card {
+                grid-template-columns: 1fr;
+            }
+            .contact-grid {
+                grid-template-columns:1fr;
+            }
+            .hero h1 {
+                font-size:34px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-wrap">
+            <a class="logo" onclick="showPage('home')">
+                <span class="logo-mark">L</span>
+                Lily
+            </a>
+            <nav>
+                <span class="hamburger" id="menuBtn">☰</span>
+                <ul id="mainMenu">
+                    <li><a onclick="showPage('home')" class="nav-link active">首页</a></li>
+                    <li><a onclick="showPage('profile')" class="nav-link">个人简介</a></li>
+                    <li><a onclick="showPage('portfolio')" class="nav-link">作品集</a></li>
+                    <li><a onclick="showPage('contact')" class="nav-link">联系我</a></li>
+                </ul>
+            </nav>
+            <button class="cta-btn" onclick="showPage('contact')">预约咨询</button>
+        </div>
+    </header>
+
+    <!-- 首页 Home -->
+    <section id="home" class="page-section active">
+        <div class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>你好，我是<span>李国莲（Lily）</span></h1>
+                    <p>专注 3D建模、场景美术、UE引擎小游戏开发、虚拟现实内容制作。承接广告、影视、企业宣传、教育课件、独立游戏项目，也提供小游戏开发、VR内容技能培训服务。从模型搭建、贴图绘制、场景布局到动画成品、微信小游戏上线一站式落地。</p>
+                    <div class="hero-buttons">
+                        <button class="cta-btn" onclick="showPage('portfolio')">浏览作品集</button>
+                        <button class="btn-outline" onclick="showPage('contact')">预约咨询</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container" style="padding:70px 0;">
+            <div class="section-title">
+                <h2>我的服务方向</h2>
+                <p>面向广告、影视、企业、教育、游戏行业提供数字内容解决方案</p>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
+                <div style="background:var(--primary-light);padding:28px;border-radius:16px;">
+                    <h3>3D建模 & 场景美术</h3>
+                    <p>房屋场景、道具、环境建模，PBR贴图、材质调试，影视动画场景搭建，渲染输出动画短片。</p>
+                </div>
+                <div style="background:var(--primary-light);padding:28px;border-radius:16px;">
+                    <h3>UE 小游戏开发</h3>
+                    <p>虚幻引擎场景搭建、蓝图交互、关卡制作，AI辅助快速开发微信小游戏，打包上线。</p>
+                </div>
+                <div style="background:var(--primary-light);padding:28px;border-radius:16px;">
+                    <h3>VR / 虚拟现实内容</h3>
+                    <p>虚拟仿真场景、沉浸式交互项目，适合企业展厅、教育实训、产品虚拟展示。</p>
+                </div>
+                <div style="background:var(--primary-light);padding:28px;border-radius:16px;">
+                    <h3>技能培训</h3>
+                    <p>UE入门、3D建模、小游戏制作教学，手把手带你完成从0到1的项目落地。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 个人简介 Profile -->
+    <section id="profile" class="page-section">
+        <div class="container profile-wrap">
+            <div class="section-title">
+                <h2>个人简介｜李国莲 Lily</h2>
+                <p>3D美术 | UE游戏开发者 | 虚拟现实内容创作者</p>
+            </div>
+            <div class="profile-card">
+                <div class="profile-sidebar">
+                    <img class="avatar" alt="李国莲头像" src="https://p3-flow-image-sign.byteimg.com/tos-cn-i-a9rns2rl98/00000000000000000000000000000000~tplv-a9rns2rl98-image.image">
+                    <h3>李国莲</h3>
+                    <span class="tag">Lily</span>
+                    <p>3D建模 / UE小游戏 / VR内容</p>
+                    <div style="margin-top:24px;text-align:left;">
+                        <p><strong>学历：</strong>大专</p>
+                        <p><strong>证书：</strong>英语四级</p>
+                        <p><strong>获奖：</strong>2025四川省华迪杯三等奖</p>
+                    </div>
+                </div>
+                <div class="profile-main">
+                    <div class="profile-item">
+                        <h4>个人介绍</h4>
+                        <p>我是李国莲，一名专注三维数字内容创作的开发者。擅长从零搭建完整3D场景，包含模型拓扑、UV拆分、贴图绘制、光照渲染、镜头动画制作；熟练使用虚幻引擎UE进行场景搭建、关卡设计、基础交互逻辑开发，同时结合AI大模型辅助快速生成游戏资源、玩法原型，完成微信小游戏开发与发布。</p>
+                        <p>我擅长团队协作，也可以独立承接完整项目，服务广告、影视、企业宣传、教育虚拟实训、独立游戏等方向，同时对外提供小游戏、VR开发相关培训，帮助爱好者快速上手数字内容制作。</p>
+                    </div>
+                    <div class="profile-item">
+                        <h4>在校经历 & 项目经验</h4>
+                        <p>在校期间，先后以团队成员与独立负责人身份完成多个完整三维动画项目：独立完成房屋、环境、道具建模，PBR材质贴图制作，场景布局、灯光调试，最终输出成品动画短片。</p>
+                        <p>深耕虚幻引擎UE项目开发，独立完成多款小游戏场景搭建、环境优化、资源整合；探索AI生成工作流，利用大模型辅助美术素材、玩法文案、原型设计，完成小游戏项目开发并成功发布至微信小游戏平台。</p>
+                        <p>多次参与学科竞赛，在项目中负责美术管线、场景统筹，锻炼了需求拆解、工期规划、跨角色协同沟通能力，能够对接客户需求，把创意落地成可交付的数字作品。</p>
+                    </div>
+                    <div class="profile-item">
+                        <h4>荣誉与能力标签</h4>
+                        <p>✅ 2025年四川省华迪杯三等奖<br>✅ 英语四级<br>✅ 3D建模、贴图、场景、动画全流程<br>✅ Unreal Engine 场景与小游戏开发<br>✅ AI辅助小游戏开发、微信小游戏上线<br>✅ VR虚拟场景搭建、沉浸式内容制作<br>✅ 项目培训、技术教学</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品集 Portfolio -->
+    <section id="portfolio" class="page-section">
+        <div class="container portfolio-wrap">
+            <div class="section-title">
+                <h2>作品集</h2>
+                <p>3D场景建模、房屋美术、UE小游戏、虚拟现实项目案例</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <img alt="欧式房屋3D建模场景" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800">
+                    <div class="portfolio-card-body">
+                        <h3>写实房屋场景建模</h3>
+                        <p>住宅建筑建模、PBR贴图、环境布景，可用于影视镜头、VR看房、宣传短片。</p>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <img alt="UE虚幻引擎游戏关卡" src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800">
+                    <div class="portfolio-card-body">
+                        <h3>UE开放小游戏关卡</h3>
+                        <p>虚幻引擎场景搭建、光照后处理、交互蓝图原型，适合休闲冒险小游戏。</p>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <img alt="虚拟VR实训场景" src="https://images.unsplash.com/photo-1617802690992-15d93263d3a9?w=800">
+                    <div class="portfolio-card-body">
+                        <h3>VR虚拟实训场景</h3>
+                        <p>沉浸式交互虚拟空间，面向教育、企业培训、产品虚拟演示。</p>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <img alt="3D动画短片场景" src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800">
+                    <div class="portfolio-card-body">
+                        <h3>三维动画短片项目</h3>
+                        <p>全套建模贴图、镜头动画、渲染输出，适配广告短片、影视小样。</p>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <img alt="微信小游戏项目" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800">
+                    <div class="portfolio-card-body">
+                        <h3>AI辅助微信小游戏</h3>
+                        <p>AI生成资源+UE整合开发，打包发布微信小游戏平台。</p>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <img alt="室内场景建模" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800">
+                    <div class="portfolio-card-body">
+                        <h3>室内空间3D复刻</h3>
+                        <p>室内户型建模、软装搭建、氛围渲染，企业展厅、虚拟样板间。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系 Contact -->
+    <section id="contact" class="page-section">
+        <div class="container contact-wrap">
+            <div class="section-title">
+                <h2>联系我</h2>
+                <p>项目咨询、合作接单、培训预约，欢迎留言</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label>姓名</label>
+                            <input type="text" name="name" placeholder="请输入您的姓名" required>
+                        </div>
+                        <div class="form-group">
+                            <label>邮箱</label>
+                            <input type="email" name="email" placeholder="请输入邮箱地址" required>
+                        </div>
+                        <div class="form-group">
+                            <label>电话</label>
+                            <input type="tel" name="phone" placeholder="请输入联系电话">
+                        </div>
+                        <div class="form-group">
+                            <label>留言</label>
+                            <textarea name="message" placeholder="描述您的项目需求：小游戏、VR内容、建模动画、培训咨询等"></textarea>
+                        </div>
+                        <button type="submit" class="cta-btn" style="width:100%">提交咨询</button>
+                    </form>
+                </div>
+                <div class="contact-info">
+                    <h3>联系方式</h3>
+                    <div class="info-line"><strong>邮箱：</strong>lily@example.com</div>
+                    <div class="info-line"><strong>服务范围：</strong>全国线上接单，可远程沟通交付</div>
+                    <div class="info-line"><strong>业务：</strong>3D建模、UE小游戏、VR内容、动画制作、技能培训</div>
+                    <div class="info-line"><strong>目标客户：</strong>广告、影视、企业、教育、游戏团队</div>
+                    <div>
+                        <h4>社交媒体</h4>
+                        <div class="social-links">
+                            <a href="#">微</a>
+                            <a href="#">B</a>
+                            <a href="#">抖</a>
+                        </div>
+                    </div>
+                    <div style="margin-top:24px;">
+                        <p>地图占位：可后续替换自己的高德/百度地图嵌入代码</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Lily｜李国莲</h4>
+                    <p style="color:#ccc;">3D建模、UE小游戏、虚拟现实内容制作，承接项目 & 技能培训。</p>
+                </div>
+                <div class="footer-col">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a onclick="showPage('home')">首页</a></li>
+                        <li><a onclick="showPage('profile')">个人简介</a></li>
+                        <li><a onclick="showPage('portfolio')">作品集</a></li>
+                        <li><a onclick="showPage('contact')">联系我</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>业务服务</h4>
+                    <ul>
+                        <li><a>3D建模动画</a></li>
+                        <li><a>UE小游戏开发</a></li>
+                        <li><a>VR虚拟现实</a></li>
+                        <li><a>小游戏培训</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>联系信息</h4>
+                    <ul>
+                        <li><a>邮箱：lily@example.com</a></li>
+                        <li><a>线上远程服务</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2026 Lily个人介绍. All rights reserved. ｜ 关键词：小游戏，虚拟现实，培训
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 页面切换
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(p=>p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            document.querySelectorAll('.nav-link').forEach(link=>link.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('mainMenu').classList.remove('open');
+            window.scrollTo({top:0,behavior:'smooth'});
+        }
+        // 移动端汉堡菜单
+        document.getElementById('menuBtn').addEventListener('click', function(){
+            document.getElementById('mainMenu').classList.toggle('open');
+        });
+        // 表单提交（前端提示，无后端）
+        document.getElementById('contactForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            alert("✅ 留言提交成功！我会尽快联系你（当前纯前端，如需接收邮件，需要后端/表单接口如WPForms）");
+            this.reset();
+        })
+    </script>
+</body>
+</html>
